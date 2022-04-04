@@ -9,7 +9,7 @@ async fn main() -> Result<(), hyper::Error> {
      *handler::handler_world();
      *println!("Hello, world!");
      */
-    let addr = ([127, 0, 0, 1], 3000).into();
+    let addr = ([0,0,0,0], 8080).into();
     //Will convert itself into the next needed type if the needed type knows
     //how to
     let handler_svc =
@@ -17,7 +17,7 @@ async fn main() -> Result<(), hyper::Error> {
     //Ahh more complez rust, why canI still not understand this :/
 
     let server = Server::bind(&addr).serve(handler_svc);
-    println!("Listening on port 3000!");
+    println!("Listening on port 8080!");
     server.await?;
     Ok(())
 }
