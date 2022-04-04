@@ -11,5 +11,4 @@ while True:
     # localhost:3000/upload
     # after printing the data,you'll  need to push it to the database 
     t = requests.post(url, data)
-    print(data)
     
