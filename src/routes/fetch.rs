@@ -6,10 +6,10 @@ use std::fs::File;
 use std::io::Read;
 
 pub fn fetch_handler(req_body: String) -> Body {
-    let json_object: Value = serde_json::from_str(&req_body).unwrap();
+    //let json_object: Value = serde_json::from_str(&req_body).unwrap();
     let mut file_fd: File = match File::open(format!(
         "{}{}",
-        json_object["sensor_name"].as_str().unwrap(),
+        "sensor1",
         ".txt"
     )) {
         Ok(fd) => fd,
