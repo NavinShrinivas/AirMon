@@ -1,3 +1,6 @@
+#[macro_use]
+extern crate hyper;
+
 mod routes;
 use hyper::service::{make_service_fn, service_fn};
 use hyper::Server;
