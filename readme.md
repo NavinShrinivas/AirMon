@@ -9,14 +9,15 @@ What is this AirMon, well its a back end ONLY Rust code that has the ability to 
 
 It creates neat API calls for both backed sensors to upload and frontend to fetch. So what's the structure for these API's?
 A few CURL API calls should clear it up.
+
 Uploading data : 
 ```
-Query example : curl -X POST localhost:3000/upload -d '{"sensor_name":"sensor1" , "new_data":"688"}'
+Query example : curl -X POST localhost:8080/upload -d '{"sensor_name":"sensor1" , "new_data":"688"}'
 Reply example : {'status' : 'true'}
 ```
 Fetching data:
 ```
-Query example : curl -X GET localhost:3000/fetch -d '{"sensor_name":"sensor1"}'
+Query example : curl -X GET localhost:8080/fetch -d '{"sensor_name":"sensor1"}'
 Reply example : {'status' : 'true' , 'content' : '685'}
 
 Reply example2 : {'status' : 'false' }
