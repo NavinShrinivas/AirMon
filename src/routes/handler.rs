@@ -34,6 +34,7 @@ pub async fn fetch_handler(uri: Request<Body>) -> Result<Response<Body>, hyper::
 pub async fn upload_handler(uri: Request<Body>) -> Result<Response<Body>, hyper::Error> {
     let bytes = body::to_bytes(uri.into_body()).await?;
     let new_data = String::from_utf8(bytes.to_vec()).unwrap();
+    println!("{:?}",new_data);
     let res_body = Body::from(upload_handler_fn(&new_data));
     let res_builder = Response::builder().body(res_body);
     return Ok(res_builder.unwrap());

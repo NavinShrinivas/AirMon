@@ -30,7 +30,7 @@ async fn main() -> Result<(), hyper::Error> {
     let service = RouterService::new(router).unwrap();
 
     let server = Server::bind(&addr).serve(service);
-    println!("Listening on port 8080!");
+    println!("Listening on port 3000!");
     server.await?;
     Ok(())
 }
