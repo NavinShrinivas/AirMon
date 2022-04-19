@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <div>
+            <h1 style="text-align:center">PPM of Co2 currently in the atmosphere is:
+                <div id="value"></div>
+            </h1>
+        </div>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <!--Axios CDN-->
+    </body>
+    <script>
+        const fetchUsers = () => {
+            document.getElementById("value").innerText = "loading...";
+            //Init test if the backed is up!
+            axios("http://localhost:3000/",{
+                method: 'GET',
+		        headers: {
+			        'Access-Control-Allow-Origin': '*',
+			        Accept: 'application/json',
+			        'Content-Type': 'application/json',
+		        }  
+            }).then((response)=>{
+                console.log(response);
+            }).catch((err=>console.log("oh oh, we ran into an error!",err)))
+            
+            axios("http://localhost:3000/fetch",{
+                method: 'GET',
+                params : {
+                    "sensor_number" : "sensor1", //Beta build of only one sensor
+                    //There does not exist a endpoint to get list of all sensors :,(
+                },
+		        headers: {
+			        'Access-Control-Allow-Origin': '*',
+			        Accept: 'application/json',
+			        'Content-Type': 'application/json',
+		        }  
+            }).then((response)=>{
+                console.log(response.data);
+                if(response.data.status === false) {
+                     document.getElementById("value").innerText = "Error...Wrong sensor name possibly!"
+                     document.getElementById("value").style.color = "red";
+
+                }else{
+                    document.getElementById("value").innerText = response.data.content            
+                }
+            }).catch((err=>console.log("oh oh, we ran into and error!",err)))
+
+
+        }
+       const checkColor = () => {
+            if (document.getElementById("value").innerText > 6) {
+                document.getElementById("value").style.color = "red";
+            } else {
+                document.getElementById("value").style.color = "green";
+            }
+        }
+        fetchUsers();
+        checkColor();
+    </script>
+</html>
