@@ -14,6 +14,8 @@ fn router() -> Router<Body, hyper::Error> {
         .get("/", handler::home_handler)
         .get("/fetch",handler::fetch_handler)
         .post("/upload",handler::upload_handler)
+        .post("/upload_temp",handler::upload_temp_handler)
+        .get("/fetch_temp",handler::fetch_temp_handler)   
         .build()
         .unwrap()
 }

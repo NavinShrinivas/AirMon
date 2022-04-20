@@ -1,7 +1,7 @@
 import serial
 import time
 import requests
-url = "http://localhost:3000/upload"
+url = "http://catss.me:3000/upload"
 
 arduino = serial.Serial(port="/dev/ttyACM0", baudrate=115200, timeout=5)
 time.sleep(1.5)
@@ -20,6 +20,12 @@ while True:
             upload_dat = "{\"sensor_name\" : \"sensor1\",\"new_data\" : \""+data_arr[1]+"\"}"
             print(upload_dat)
             t = requests.post(url, upload_dat)
-
-
+        if data.decode()[0] == 'T': #meaning data from CO2 sensor
+            data_arr = data.decode().split(":")
+            print("uploading... ",data_arr[1]);
+            upload_dat = "{\"sensor_name\" : \"sensor2\",\"new_data\" : \""+data_arr[1]+"\"}"
+            print(upload_dat)
+            new_url = "http://catss.me:3000/upload_temp"
+            t = requests.post(new_url, upload_dat)
     
+   

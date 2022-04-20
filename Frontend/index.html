@@ -13,6 +13,9 @@
             <h1 style="text-align:center">PPM of Co2 currently in the atmosphere is:
                 <div id="value"></div>
             </h1>
+            <h1 style="text-align:center">Temprature is:
+                <div id="temp_value"></div>
+            </h1>
         </div>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <!--Axios CDN-->
@@ -21,7 +24,7 @@
         const fetchUsers = () => {
             document.getElementById("value").innerText = "loading...";
             //Init test if the backed is up!
-            axios("http://localhost:3000/",{
+            axios("http://catss.me:3000/",{
                 method: 'GET',
 		        headers: {
 			        'Access-Control-Allow-Origin': '*',
@@ -32,7 +35,7 @@
                 console.log(response);
             }).catch((err=>console.log("oh oh, we ran into an error!",err)))
             
-            axios("http://localhost:3000/fetch",{
+            axios("http://catss.me:3000/fetch",{
                 method: 'GET',
                 params : {
                     "sensor_number" : "sensor1", //Beta build of only one sensor
@@ -53,6 +56,28 @@
                     document.getElementById("value").innerText = response.data.content            
                 }
             }).catch((err=>console.log("oh oh, we ran into and error!",err)))
+
+            axios("http://catss.me:3000/fetch_temp",{
+                method: 'GET',
+                params : {
+                    "sensor_number" : "sensor2", //Beta build of only one sensor
+                    //There does not exist a endpoint to get list of all sensors :,(
+                },
+		        headers: {
+			        'Access-Control-Allow-Origin': '*',
+			        Accept: 'application/json',
+			        'Content-Type': 'application/json',
+		        }  
+            }).then((response)=>{
+                console.log(response.data);
+                if(response.data.status === false) {
+                     document.getElementById("temp_value").innerText = "Error...Wrong sensor name possibly!"
+
+                }else{
+                    document.getElementById("temp_value").innerText = response.data.content            
+                }
+            }).catch((err=>console.log("oh oh, we ran into and error!",err)))
+
 
 
         }
